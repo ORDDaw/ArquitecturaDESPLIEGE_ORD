@@ -161,6 +161,21 @@ Ejemplo:
 ]
 ```
 
+## Formatos de documentación
+
+El README se mantiene en Markdown y se convierte a otros formatos con
+`bash docs/convertir-readme.sh` (Markdown → HTML con `markdown-it-py` →
+PDF con LibreOffice). Comparación de los tres formatos:
+
+| Formato | Ventajas | Inconvenientes | Cuándo usarlo |
+| --- | --- | --- | --- |
+| **Markdown** (`README.md`) | Fácil de escribir y editar; se versiona y revisa muy bien en Git (diffs legibles); conversión sencilla a otros formatos | No controla el diseño final; la apariencia depende del visor | Documentación viva del repositorio: es la fuente de la que se generan los demás formatos |
+| **HTML** (`docs/README.html`) | Presentación controlada con CSS; se abre en cualquier navegador; se puede publicar en la web | Más verboso; mezcla contenido y presentación; diffs peores de revisar | Publicar la documentación en una web o compartirla con estilo |
+| **PDF** (`docs/README.pdf`) | Presentación fija e idéntica en cualquier equipo; cómodo de entregar e imprimir | Formato binario: no se revisa bien en Git y no es editable con facilidad | Entregas, impresión y documentación «congelada» |
+
+Los formatos HTML y PDF son **generados**: se regeneran desde el Markdown
+para que no queden desactualizados.
+
 ## Autoría
 
 RD <rd@example.com>

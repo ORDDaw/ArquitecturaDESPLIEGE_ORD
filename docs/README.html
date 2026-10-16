@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>README</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    max-width: 48rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: #1f2328;
+  }
+  h1, h2, h3 { line-height: 1.25; }
+  code, pre {
+    font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace;
+    background: #f6f8fa;
+    border-radius: 6px;
+  }
+  code { padding: 0.1rem 0.3rem; font-size: 0.9em; }
+  pre { padding: 0.8rem; overflow-x: auto; }
+  pre code { padding: 0; background: none; }
+  table { border-collapse: collapse; margin: 1rem 0; }
+  th, td { border: 1px solid #d0d7de; padding: 0.4rem 0.7rem; }
+  th { background: #f6f8fa; }
+  blockquote {
+    margin-left: 0;
+    padding-left: 1rem;
+    border-left: 4px solid #d0d7de;
+    color: #57606a;
+  }
+</style>
+</head>
+<body>
+<h1>gestor-tareas</h1>
+<p>Gestor de tareas por línea de comandos: crea, completa, elimina, lista y
+resume tareas, guardándolas en un fichero JSON local.</p>
+<h2>Descripción</h2>
+<p><code>gestor-tareas</code> es un pequeño gestor de tareas escrito en JavaScript
+(CommonJS), sin dependencias externas. Todas las órdenes leen y escriben el
+fichero <code>datos/tareas.json</code>, de modo que los datos sobreviven entre
+ejecuciones.</p>
+<h2>Requisitos</h2>
+<ul>
+<li><strong>Node.js 18 o superior</strong> (probado con v22.22.1).</li>
+<li><strong>npm</strong> (recomendado, para <code>npm start</code> y <code>npm test</code>). El proyecto fija la
+versión <code>npm@11.21.1</code> en el campo <code>packageManager</code> de <code>package.json</code>
+(compatible con corepack).</li>
+</ul>
+<h2>Instalación</h2>
+<p>No hay dependencias que instalar; basta con disponer de la carpeta del
+proyecto:</p>
+<pre><code class="language-bash">git clone &lt;url-del-repositorio&gt;
+cd gestor-tareas
+</code></pre>
+<p><code>npm install</code> es innecesario (no hay dependencias externas).</p>
+<h2>Uso</h2>
+<p>Sintaxis general:</p>
+<pre><code class="language-bash">node src/cli.js &lt;orden&gt; [argumentos]
+</code></pre>
+<p>Sin orden, la CLI muestra la ayuda:</p>
+<pre><code class="language-bash">$ node src/cli.js
+Uso: node src/cli.js anadir|completar|eliminar|listar|resumen
+</code></pre>
+<h3>Añadir una tarea (<code>anadir</code>)</h3>
+<pre><code class="language-bash">$ node src/cli.js anadir &quot;Comprar pan&quot;
+Tarea creada con id 4
+</code></pre>
+<p>Crea la tarea con el id consecutivo siguiente y prioridad por defecto 2. La
+CLI solo acepta el texto: por ahora no se puede indicar la prioridad.</p>
+<h3>Listar las tareas pendientes (<code>listar</code>)</h3>
+<pre><code class="language-bash">$ node src/cli.js listar
+[1] (p1) Preparar el entorno de despliegue
+[3] (p2) Configurar el repositorio remoto
+[2] (p3) Escribir el README del proyecto
+</code></pre>
+<p>Muestra <code>[id] (prioridad) texto</code> de las tareas <strong>no completadas</strong>, de menor a
+mayor prioridad.</p>
+<h3>Completar una tarea (<code>completar</code>)</h3>
+<pre><code class="language-bash">$ node src/cli.js completar 1
+{
+  id: 1,
+  texto: 'Preparar el entorno de despliegue',
+  prioridad: 1,
+  hecha: true
+}
+</code></pre>
+<p>Marca la tarea con ese id como hecha y muestra la tarea actualizada.</p>
+<h3>Eliminar una tarea (<code>eliminar</code>)</h3>
+<pre><code class="language-bash">$ node src/cli.js eliminar 4
+Eliminada
+</code></pre>
+<p>Elimina la tarea con ese id (si no existe, los datos no cambian).</p>
+<h3>Resumen (<code>resumen</code>)</h3>
+<pre><code class="language-bash">$ node src/cli.js resumen
+{ total: 3, hechas: 0, pendientes: 3 }
+</code></pre>
+<p>Devuelve el total de tareas, cuántas están hechas y cuántas pendientes.</p>
+<h3>Atajos con npm</h3>
+<pre><code class="language-bash">npm start -- listar
+npm test
+</code></pre>
+<h2>Pruebas</h2>
+<p>Las pruebas usan el runner integrado de Node (<code>node:test</code>) y se ejecutan con
+<code>npm test</code>:</p>
+<pre><code class="language-bash">$ npm test
+
+&gt; gestor-tareas@0.1.0 test
+&gt; node --test
+
+...
+1..1
+# tests 1
+# pass 1
+# fail 0
+</code></pre>
+<p>(Salida abreviada: <code>node --test</code> imprime el informe TAP completo.)</p>
+<h2>Estructura de carpetas</h2>
+<pre><code class="language-text">.
+├── AGENTS.md        # normas para agentes de IA
+├── README.md        # este documento
+├── opencode.json    # configuración de OpenCode (permisos)
+├── package.json     # metadatos y scripts npm
+├── datos/
+│   └── tareas.json  # almacén de datos
+├── src/
+│   ├── cli.js       # interfaz de línea de comandos
+│   └── tareas.js    # lógica de negocio y persistencia
+└── test/
+    └── tareas.test.js  # pruebas con node:test
+</code></pre>
+<h2>Formato de <code>datos/tareas.json</code></h2>
+<p>El fichero contiene un array JSON de tareas; cada tarea tiene cuatro campos:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>número</td>
+<td>Identificador consecutivo; empieza en 1</td>
+</tr>
+<tr>
+<td><code>texto</code></td>
+<td>cadena</td>
+<td>Descripción de la tarea</td>
+</tr>
+<tr>
+<td><code>prioridad</code></td>
+<td>número</td>
+<td>1 es la prioridad más alta (por defecto 2)</td>
+</tr>
+<tr>
+<td><code>hecha</code></td>
+<td>booleano</td>
+<td><code>true</code> si la tarea está completada</td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplo:</p>
+<pre><code class="language-json">[
+  { &quot;id&quot;: 1, &quot;texto&quot;: &quot;Preparar el entorno de despliegue&quot;, &quot;prioridad&quot;: 1, &quot;hecha&quot;: false }
+]
+</code></pre>
+<h2>Formatos de documentación</h2>
+<p>El README se mantiene en Markdown y se convierte a otros formatos con
+<code>bash docs/convertir-readme.sh</code> (Markdown → HTML con <code>markdown-it-py</code> →
+PDF con LibreOffice). Comparación de los tres formatos:</p>
+<table>
+<thead>
+<tr>
+<th>Formato</th>
+<th>Ventajas</th>
+<th>Inconvenientes</th>
+<th>Cuándo usarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Markdown</strong> (<code>README.md</code>)</td>
+<td>Fácil de escribir y editar; se versiona y revisa muy bien en Git (diffs legibles); conversión sencilla a otros formatos</td>
+<td>No controla el diseño final; la apariencia depende del visor</td>
+<td>Documentación viva del repositorio: es la fuente de la que se generan los demás formatos</td>
+</tr>
+<tr>
+<td><strong>HTML</strong> (<code>docs/README.html</code>)</td>
+<td>Presentación controlada con CSS; se abre en cualquier navegador; se puede publicar en la web</td>
+<td>Más verboso; mezcla contenido y presentación; diffs peores de revisar</td>
+<td>Publicar la documentación en una web o compartirla con estilo</td>
+</tr>
+<tr>
+<td><strong>PDF</strong> (<code>docs/README.pdf</code>)</td>
+<td>Presentación fija e idéntica en cualquier equipo; cómodo de entregar e imprimir</td>
+<td>Formato binario: no se revisa bien en Git y no es editable con facilidad</td>
+<td>Entregas, impresión y documentación «congelada»</td>
+</tr>
+</tbody>
+</table>
+<p>Los formatos HTML y PDF son <strong>generados</strong>: se regeneran desde el Markdown
+para que no queden desactualizados.</p>
+<h2>Autoría</h2>
+<p>RD <a href="mailto:rd@example.com">rd@example.com</a></p>
+<h2>Licencia</h2>
+<p>MIT (véase <code>package.json</code>).</p>
+
+</body>
+</html>
