@@ -48,12 +48,11 @@ Uso: node src/cli.js anadir|completar|eliminar|listar|resumen
 
 ```bash
 $ node src/cli.js anadir "Comprar pan"
-Tarea 4 creada con prioridad 2
+Tarea creada con id 4
 ```
 
-Crea la tarea con el id consecutivo siguiente. La prioridad por defecto es 2
-(puedes indicar otra como segundo argumento… aunque la CLI actual solo pasa el
-texto).
+Crea la tarea con el id consecutivo siguiente y prioridad por defecto 2. La
+CLI solo acepta el texto: por ahora no se puede indicar la prioridad.
 
 ### Listar las tareas pendientes (`listar`)
 
@@ -85,8 +84,10 @@ Marca la tarea con ese id como hecha y muestra la tarea actualizada.
 
 ```bash
 $ node src/cli.js eliminar 4
-Eliminada; quedan 3 tareas
+Eliminada
 ```
+
+Elimina la tarea con ese id (si no existe, los datos no cambian).
 
 ### Resumen (`resumen`)
 
@@ -101,7 +102,6 @@ Devuelve el total de tareas, cuántas están hechas y cuántas pendientes.
 
 ```bash
 npm start -- listar
-npm run listar
 ```
 
 ## Estructura de carpetas
