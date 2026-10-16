@@ -1,0 +1,12 @@
+# Secretos (no subir nunca)
+.env
+
+# Dependencias
+node_modules/
+
+# Registros
+*.log
+
+# Volcados de la base de datos
+*.sql.gz
+dump.sql
