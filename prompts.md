@@ -15,6 +15,7 @@ lo largo de su realización (una fila por prompt relevante).
 | 8 | «Prepara los cambios en commits separados (documentación, pruebas y corrección)» | Tres commits en español siguiendo la convención «Añade…/Corrige…». | Revisé `git diff --staged` antes de cada commit. |
 | 9 | «Crea `docs/control-de-versiones.md` con la instalación y configuración de Git, el flujo de trabajo, la convención de mensajes y cómo revisar el trabajo de un agente» | Documento completo y verificado con `git log --oneline --graph`. | Nada. |
 | 10 | «Convierte el README a HTML y PDF y añade una tabla comparativa de los tres formatos» | Script de conversión reproducible, HTML y PDF generados, tabla añadida al README. | Nada; verifiqué el PDF visualmente (páginas, estilos y tabla). |
+| 11 | «Genera el informe final en PDF con el enunciado, las soluciones y las salidas reales de cada ejercicio» | Compuso el informe en HTML (cabecera del IES, tablas y bloques de comandos) y lo convirtió a PDF con LibreOffice. | Nada; revisé el PDF página a página y ajusté el formato (interlineado de los bloques de código y figuras) para que se lea bien. |
 
 ## Balance (ejercicio 9)
 

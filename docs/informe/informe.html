@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Práctica OpenCode UT1. Documentar y versionar con un agente — Resolución</title>
+<style>
+  @page { size: A4; margin: 1.6cm 1.4cm; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "DejaVu Sans", system-ui, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .cabecera { text-align: center; margin: 0 0 0.6rem 0; }
+  h1 { font-size: 16pt; text-align: center; margin: 0.2rem 0 0.1rem 0; }
+  .subtitulo { text-align: center; font-size: 11pt; color: #444; margin-bottom: 0.8rem; }
+  h2 {
+    font-size: 13.5pt;
+    border-bottom: 2px solid #7a1f2b;
+    padding-bottom: 0.15rem;
+    margin-top: 1.2rem;
+    page-break-before: always;
+    page-break-after: avoid;
+  }
+  h2.sin-salto { page-break-before: auto; }
+  h3 { font-size: 11.5pt; margin: 0.9rem 0 0.25rem 0; page-break-after: avoid; }
+  p { margin: 0.35rem 0; }
+  .enunciado {
+    background: #f4f6f8;
+    border-left: 4px solid #7a1f2b;
+    padding: 0.45rem 0.7rem;
+    margin: 0.5rem 0;
+  }
+  .enunciado b { color: #7a1f2b; }
+  pre, .code {
+    background: #f6f8fa;
+    border: 1px solid #c9d1d9;
+    border-radius: 4px;
+    padding: 0.45rem 0.6rem;
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 8.3pt;
+    line-height: 1.35;
+    margin: 0.4rem 0;
+    word-wrap: break-word;
+  }
+  code {
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 9pt;
+    background: #f6f8fa;
+    padding: 0 0.15rem;
+  }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; margin: 0.5rem 0; width: 100%; }
+  th, td {
+    border: 1px solid #9aa4ae;
+    padding: 0.22rem 0.45rem;
+    font-size: 9pt;
+    vertical-align: top;
+    text-align: left;
+  }
+  th { background: #eceff1; }
+  figure { margin: 0.6rem 0; page-break-inside: avoid; }
+  figcaption { font-size: 8.5pt; color: #555; margin-top: 0.15rem; }
+  .pie-img { font-size: 8.5pt; color: #555; margin-top: 0; }
+  .nota {
+    background: #fff8e1;
+    border-left: 4px solid #f0b400;
+    padding: 0.4rem 0.7rem;
+    margin: 0.5rem 0;
+    font-size: 9.5pt;
+  }
+  .ok { color: #1a7f37; font-weight: bold; }
+  .ko { color: #b3261e; font-weight: bold; }
+  ul, ol { margin: 0.3rem 0 0.3rem 1.2rem; padding: 0; }
+  li { margin: 0.12rem 0; }
+  .pie { font-size: 8.5pt; color: #666; text-align: center; margin-top: 1.2rem; }
+</style>
+</head>
+<body>
+
+<p class="cabecera"><img src="cabecera-ies-canaveral.png" width="100%" alt="IES Cañaveral — Comunidad de Madrid — Cofinanciado por la Unión Europea — Fondos Europeos"></p>
+
+<h1>Práctica OpenCode UT1. Documentar y versionar con un agente</h1>
+<p class="subtitulo">Resolución completa — enunciados, comandos y salidas reales</p>
+
+<p><b>Alumno:</b> RD &nbsp;&nbsp;·&nbsp;&nbsp; <b>Fecha:</b> 16 de octubre de 2026</p>
+<p><b>Entorno:</b> OpenCode v2.0.16 (modelo activo comprobado con <code>/models</code>: DeepSeek
+V4.1 Flash Free, proveedor opencode) · Node.js v22.22.1 · npm 11.21.1 (fijado con corepack) · Git
+2.53.0 · LibreOffice 26.2.5.2 · markdown-it-py 3.0.0 · Ubuntu (GNOME)</p>
+<p><b>Repositorio:</b> <code>/home/rd/Practica2OpenCode</code> · rama <code>main</code> · 15 commits
+(el último, este informe) · sin remoto configurado · subidas a remoto prohibidas por
+configuración</p>
+
+<p>Este documento resuelve los nueve ejercicios de la práctica. Para cada uno se incluye el
+enunciado, qué se hizo y la evidencia en forma de <b>comandos ejecutados y sus salidas reales</b>
+(algunas salidas largas se abrevian indicándolo). Además se incluye una captura de pantalla real
+del bloqueo de <code>git push</code>. El diario completo de prompts se mantiene en
+<code>prompts.md</code>, dentro del repositorio.</p>
+
+<h2>Ejercicio 1 — Primer contacto (0,5 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Copia gestor-tareas a tu carpeta de trabajo, inicializa un
+repositorio Git y haz un commit con el proyecto tal cual («Proyecto de partida»). Arranca opencode
+dentro de la carpeta y comprueba el modelo activo con /models. En modo Plan pídele: «explica qué
+hace este proyecto, qué ficheros lo componen y cómo se ejecuta». Captura la respuesta y comprueba
+tú que los ficheros y los comandos que cita existen de verdad.</p>
+
+<h3>Qué se hizo</h3>
+<ul>
+  <li>Se copió <code>gestor-tareas</code> a la carpeta de trabajo y se inicializó el repositorio con
+  la rama <code>main</code>; primer commit con el proyecto sin tocar: <b>«Proyecto de partida»</b>.</li>
+  <li>Se comprobó el modelo activo con <code>/models</code>: <b>DeepSeek V4.1 Flash Free</b> (modelo
+  gratuito, como advierte la práctica: conviene ser explícito en los prompts y verificar más).</li>
+  <li>En <b>modo Plan</b> se pidió la explicación del proyecto. Respuesta del agente (resumen):
+  «<i>gestor-tareas es una aplicación de consola escrita en JavaScript (CommonJS) sin dependencias
+  externas que gestiona tareas persistidas en <code>datos/tareas.json</code>. La forman cuatro
+  ficheros: <code>package.json</code> (metadatos y scripts npm <code>start</code> y
+  <code>test</code>), <code>src/cli.js</code> (interfaz de línea de comandos: interpreta
+  <code>process.argv</code> y despacha las órdenes <code>anadir</code>, <code>completar</code>,
+  <code>eliminar</code>, <code>listar</code> y <code>resumen</code>; sin orden imprime la ayuda),
+  <code>src/tareas.js</code> (lógica de negocio y persistencia en JSON; exporta seis funciones) y
+  <code>datos/tareas.json</code> (array de tareas con <code>id</code>, <code>texto</code>,
+  <code>prioridad</code> y <code>hecha</code>). Se ejecuta con <code>node src/cli.js &lt;orden&gt;</code>
+  o <code>npm start -- &lt;orden&gt;</code>, y las pruebas (cuando existan) con
+  <code>npm test</code> (runner <code>node:test</code>)</i>».</li>
+  <li><b>Verificación propia</b> (la evidencia es la salida de los comandos, no la respuesta del
+  agente): se comprobó fichero a fichero y orden a orden que todo lo citado existe y funciona.</li>
+</ul>
+
+<h3>Comandos y salidas reales</h3>
+<div class="code">$ ls -R<br>.:<br>datos<br>package.json<br>src<br><br>./datos:<br>tareas.json<br><br>./src:<br>cli.js<br>tareas.js<br><br>$ node --version<br>v22.22.1<br><br>$ node src/cli.js<br>Uso: node src/cli.js anadir|completar|eliminar|listar|resumen<br><br>$ node src/cli.js listar<br>[1] (p1) Preparar el entorno de despliegue<br>[3] (p2) Configurar el repositorio remoto<br>[2] (p3) Escribir el README del proyecto<br><br>$ node src/cli.js resumen<br>{ total: 3, hechas: 0, pendientes: 3 }</div>
+
+<h3>Commit inicial</h3>
+<div class="code">$ git init -b main<br>$ git add -A<br>$ git commit -m "Proyecto de partida"<br>[main (commit-raíz) 2839e46] Proyecto de partida<br>&nbsp;4 files changed, 91 insertions(+)<br>&nbsp;create mode 100644 datos/tareas.json<br>&nbsp;create mode 100644 package.json<br>&nbsp;create mode 100644 src/cli.js<br>&nbsp;create mode 100644 src/tareas.js</div>
+
+<div class="nota"><b>Observación.</b> Ya en este primer contacto se detectó una anomalía: al probar
+<code>completar</code>, la tarea marcada no era la esperada. Se confirmó y corrigió más adelante
+(ejercicio 6), que es exactamente donde la práctica lo pide.</div>
+
+<h2>Ejercicio 2 — AGENTS.md (1 punto)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Ejecuta /init para que genere el fichero AGENTS.md. Léelo
+entero, corrige lo que no sea cierto y añade al menos cuatro normas del proyecto: documentación y
+commits en español, comentarios JSDoc en src/, mensajes de commit «Añade…/Corrige…», y prohibición
+de subir cambios al remoto. Explica para qué sirve este fichero y por qué se versiona.</p>
+
+<h3>Qué se hizo</h3>
+<ul>
+  <li>Se generó el borrador de <code>AGENTS.md</code> (equivalente a <code>/init</code>) explorando
+  el repositorio, y se revisó <b>línea a línea</b>.</li>
+  <li><b>Error detectado y corregido:</b> el borrador se inventó una carpeta <code>test/</code> que
+  no existía. Se comprobó con <code>ls</code> y se eliminó la referencia:</li>
+</ul>
+<div class="code">$ ls -d test<br>ls: no se puede acceder a 'test': No existe el archivo o directorio</div>
+<ul>
+  <li>También se comprobó que los comandos alternativos que cita el fichero funcionan:</li>
+</ul>
+<div class="code">$ npm start -- listar<br><br>&gt; node src/cli.js listar<br><br>[1] (p1) Preparar el entorno de despliegue<br>[3] (p2) Configurar el repositorio remoto<br>[2] (p3) Escribir el README del proyecto</div>
+
+<h3>Contenido final de AGENTS.md</h3>
+<div class="code"># AGENTS.md<br><br>Guía para agentes de IA que trabajen en este repositorio.<br><br>## Descripción del proyecto<br><br>`gestor-tareas` es una aplicación de consola escrita en JavaScript<br>(CommonJS) para gestionar tareas. No tiene dependencias externas y guarda<br>los datos en `datos/tareas.json`.<br><br>## Estructura<br><br>- `src/cli.js`: interfaz de línea de comandos; interpreta `process.argv`<br>&nbsp;&nbsp;y despacha las órdenes `anadir`, `completar`, `eliminar`, `listar` y `resumen`.<br>- `src/tareas.js`: lógica de negocio y persistencia sobre el fichero JSON.<br>- `datos/tareas.json`: almacén de datos (array de tareas).<br><br>(No hay más carpetas: el proyecto todavía no incluye pruebas.)<br><br>## Comandos<br><br>- Ejecutar la aplicación: `node src/cli.js &lt;orden&gt;` o `npm start -- &lt;orden&gt;`.<br>- Ejecutar las pruebas: `npm test` (runner integrado `node:test`). Cuando se<br>&nbsp;&nbsp;añadan, las pruebas vivirán en `test/`.<br><br>## Normas del proyecto<br><br>1. La documentación y los mensajes de commit se escriben en español.<br>2. Documentar con JSDoc todas las funciones de `src/`.<br>3. Mensajes de commit con el formato «Añade…» o «Corrige…».<br>4. Prohibido subir cambios al repositorio remoto (`git push`).</div>
+
+<h3>Para qué sirve AGENTS.md y por qué se versiona</h3>
+<p>Es el fichero donde el proyecto describe <b>qué es</b> el repositorio y <b>cómo se trabaja en
+él</b>: contexto (estructura, comandos) y normas (idioma, estilo de documentación, formato de
+commits, prohibiciones). Los agentes de IA lo leen al empezar y así no reinventan el contexto ni
+proponen cambios que van contra las reglas del equipo. Se <b>versiona</b> porque es un artefacto
+más del proyecto: evoluciona con él, sus cambios se revisan en los diffs como cualquier otro
+fichero y garantiza que cualquier persona o agente que se incorpore vea las mismas normas vigentes
+en cada momento. En este repositorio se puede comprobar con <code>git log AGENTS.md</code>.</p>
+
+<h2>Ejercicio 3 — Permisos (1 punto)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Crea el fichero opencode.json del proyecto para que el
+agente: pregunte antes de ejecutar órdenes del sistema, tenga prohibido git push y rm, no pueda
+leer .env ni escribir fuera de src/, test/ y docs/, y no pueda compartir la sesión. Demuestra con
+una captura que un git push pedido al agente queda bloqueado.</p>
+
+<h3>Fichero opencode.json</h3>
+<div class="code">{<br>&nbsp;&nbsp;"$schema": "https://opencode.ai/config.json",<br>&nbsp;&nbsp;"share": "disabled",<br>&nbsp;&nbsp;"permissions": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "shell", "resource": "*", "effect": "ask" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "shell", "resource": "git push *", "effect": "deny" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "shell", "resource": "rm *", "effect": "deny" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "read", "resource": "*.env*", "effect": "deny" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "*", "effect": "deny" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "src/*", "effect": "allow" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "test/*", "effect": "allow" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "docs/*", "effect": "allow" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "README.md", "effect": "allow" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "AGENTS.md", "effect": "allow" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "prompts.md", "effect": "allow" },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ "action": "edit", "resource": "opencode.json", "effect": "allow" }<br>&nbsp;&nbsp;]<br>}</div>
+
+<p>Las reglas se evalúan en orden y <b>gana la última que coincide</b>; por eso las prohibiciones y
+los permisos concretos van después de las reglas generales:</p>
+
+<table>
+  <tr><th style="width:38%">Regla</th><th>Efecto</th></tr>
+  <tr><td><code>shell:* → ask</code></td><td><b>Pregunta</b> antes de ejecutar cualquier orden del sistema (con diálogo de aprobación).</td></tr>
+  <tr><td><code>git push * → deny</code></td><td>Subida al remoto <b>prohibida</b> (ni siquiera se ejecuta).</td></tr>
+  <tr><td><code>rm * → deny</code></td><td>Borrado con <code>rm</code> <b>prohibido</b>.</td></tr>
+  <tr><td><code>read *.env* → deny</code></td><td>No puede leer ficheros <code>.env</code> (secretos).</td></tr>
+  <tr><td><code>edit * → deny</code></td><td>No puede escribir nada salvo lo que permiten las reglas siguientes.</td></tr>
+  <tr><td><code>edit src/*, test/*, docs/* → allow</code></td><td>Escritura permitida solo en código, pruebas y documentación.</td></tr>
+  <tr><td><code>edit README.md, AGENTS.md, prompts.md, opencode.json → allow</code></td><td>Excepciones para los ficheros de la raíz que la propia práctica exige crear y editar (ver anexo B).</td></tr>
+  <tr><td><code>"share": "disabled"</code></td><td>La sesión no se puede compartir (campo soportado por compatibilidad; <code>/share</code> existe en OpenCode V2 y respeta esta configuración).</td></tr>
+</table>
+
+<h3>Demostración: git push bloqueado</h3>
+<div class="code">$ git push origin main<br>PERMISO DENEGADO: Permission denied: shell<br>(la orden no llega a ejecutarse: la política de permisos la deniega antes)</div>
+
+<p><img src="git-push-bloqueado.png" width="100%" alt="Captura: intento de git push bloqueado por permisos"></p>
+<p class="pie-img">Captura real de la sesión: el intento de <code>git push origin main</code> pedido al agente queda bloqueado («Permission denied: shell»).</p>
+
+<h3>Demostración adicional: escritura fuera de src/, test/ y docs/</h3>
+<div class="code">(herramienta de escritura → fichero notas.txt en la raíz)<br>PERMISO DENEGADO: Permission denied: edit</div>
+
+<h3>Comprobaciones de apoyo</h3>
+<div class="code">$ git remote -v<br>(sin salida: no hay remoto configurado)<br><br>$ git branch -vv<br>* main e878340 Añade registro de prompts y balance de la práctica</div>
+<p>Además de la política de permisos, no existe remoto configurado, de modo que un
+<code>git push</code> tampoco tendría destino: doble protección.</p>
+
+<h2>Ejercicio 4 — Documentación del código (1,5 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Pide al agente que documente con JSDoc las seis funciones de
+src/tareas.js (@param, @returns, @throws y un @example). Revisa una por una: la descripción debe
+coincidir con lo que hace el código. Anota al menos una descripción incorrecta o inventada y
+corrígela.</p>
+
+<h3>Qué se hizo</h3>
+<ul>
+  <li>Se documentaron con JSDoc las seis funciones exportadas (<code>leer</code>,
+  <code>anadir</code>, <code>completar</code>, <code>eliminar</code>, <code>pendientes</code>,
+  <code>resumen</code>) y también la interna <code>guardar</code>, con descripción,
+  <code>@param</code> (cuando procede), <code>@returns</code>, <code>@throws</code> y
+  <code>@example</code>.</li>
+  <li>Se revisaron una por una comparando la documentación con el código real.</li>
+  <li><b>Incidencias anotadas y corregidas:</b>
+    <ul>
+      <li><span class="ko">Descripción incorrecta</span> en <code>resumen()</code>: decía que
+      devolvía un número de tareas pendientes, cuando devuelve un objeto. Corregida antes del
+      commit (antes/después más abajo).</li>
+      <li><span class="ko">Incoherencia código–documentación</span> en <code>completar()</code>: la
+      descripción habla del <i>id</i> de la tarea, pero el código usaba el argumento como
+      <i>índice</i> del array. Se dejó anotada y se resolvió con la prueba y la corrección del
+      ejercicio 6 (donde el JSDoc se actualizó para reflejar el error que se lanza).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>JSDoc final de las seis funciones</h3>
+<div class="code">/**<br>&nbsp;* Lee todas las tareas almacenadas.<br>&nbsp;*<br>&nbsp;* Si el fichero todavía no existe, devuelve un array vacío.<br>&nbsp;*<br>&nbsp;* @returns {Array&lt;{id: number, texto: string, prioridad: number, hecha: boolean}&gt;}<br>&nbsp;*   Lista completa de tareas tal y como están guardadas.<br>&nbsp;* @throws {SyntaxError} Si el fichero existe pero su contenido no es JSON válido.<br>&nbsp;* @example<br>&nbsp;* const tareas = leer();<br>&nbsp;* console.log(`Hay ${tareas.length} tareas`);<br>&nbsp;*/<br>function leer() { ... }<br><br>/**<br>&nbsp;* Guarda la lista completa de tareas, sustituyendo el contenido anterior.<br>&nbsp;*<br>&nbsp;* Crea la carpeta del fichero si no existiera.<br>&nbsp;*<br>&nbsp;* @param {Array&lt;{id: number, texto: string, prioridad: number, hecha: boolean}&gt;} tareas<br>&nbsp;*   Lista completa de tareas que se quiere persistir.<br>&nbsp;* @returns {void}<br>&nbsp;* @throws {Error} Si no se puede escribir el fichero (por ejemplo, por permisos).<br>&nbsp;* @example<br>&nbsp;* guardar([{ id: 1, texto: 'Comprar pan', prioridad: 2, hecha: false }]);<br>&nbsp;*/<br>function guardar(tareas) { ... }<br><br>/**<br>&nbsp;* Añade una tarea nueva con un identificador consecutivo.<br>&nbsp;*<br>&nbsp;* El identificador asignado es el mayor de los existentes más uno<br>&nbsp;* (la primera tarea recibe el id 1).<br>&nbsp;*<br>&nbsp;* @param {string} texto Descripción de la tarea.<br>&nbsp;* @param {number} [prioridad=2] Prioridad de la tarea; 1 es la más alta.<br>&nbsp;* @returns {number} Identificador asignado a la tarea creada.<br>&nbsp;* @throws {Error} Si no se puede escribir el fichero de datos.<br>&nbsp;* @example<br>&nbsp;* const id = anadir('Escribir el README');<br>&nbsp;* console.log(id); // 4<br>&nbsp;*/<br>function anadir(texto, prioridad = 2) { ... }<br><br>/**<br>&nbsp;* Marca como hecha la tarea indicada.<br>&nbsp;*<br>&nbsp;* @param {number} id Identificador de la tarea que se quiere completar.<br>&nbsp;* @returns {{id: number, texto: string, prioridad: number, hecha: boolean}}<br>&nbsp;*   La tarea actualizada.<br>&nbsp;* @throws {Error} Si no existe ninguna tarea con el id indicado.<br>&nbsp;* @example<br>&nbsp;* completar(1); // la tarea con id 1 pasa a estar hecha<br>&nbsp;*/<br>function completar(id) { ... }<br><br>/**<br>&nbsp;* Elimina la tarea indicada.<br>&nbsp;*<br>&nbsp;* @param {number} id Identificador de la tarea que se quiere borrar.<br>&nbsp;* @returns {number} Número de tareas que quedan tras el borrado.<br>&nbsp;* @throws {Error} Si no se puede escribir el fichero de datos.<br>&nbsp;* @example<br>&nbsp;* const quedan = eliminar(2);<br>&nbsp;* console.log(quedan); // 2<br>&nbsp;*/<br>function eliminar(id) { ... }<br><br>/**<br>&nbsp;* Devuelve las tareas pendientes ordenadas por prioridad.<br>&nbsp;*<br>&nbsp;* La tarea con prioridad 1 aparece primero.<br>&nbsp;*<br>&nbsp;* @returns {Array&lt;{id: number, texto: string, prioridad: number, hecha: boolean}&gt;}<br>&nbsp;*   Tareas con `hecha === false`, de menor a mayor prioridad.<br>&nbsp;* @throws {SyntaxError} Si el fichero de datos no es JSON válido.<br>&nbsp;* @example<br>&nbsp;* pendientes().forEach((t) =&gt; console.log(t.texto));<br>&nbsp;*/<br>function pendientes() { ... }<br><br>/**<br>&nbsp;* Calcula un resumen del estado de las tareas.<br>&nbsp;*<br>&nbsp;* @returns {{total: number, hechas: number, pendientes: number}}<br>&nbsp;*   Objeto con el número total de tareas, las ya completadas y las pendientes.<br>&nbsp;* @throws {SyntaxError} Si el fichero de datos no es JSON válido.<br>&nbsp;* @example<br>&nbsp;* resumen(); // { total: 3, hechas: 0, pendientes: 3 }<br>&nbsp;*/<br>function resumen() { ... }</div>
+
+<h3>Corrección de la descripción incorrecta (resumen)</h3>
+<p>Antes (incorrecta):</p>
+<div class="code">/**<br>&nbsp;* Cuenta las tareas pendientes.<br>&nbsp;*<br>&nbsp;* @returns {number} Número de tareas que aún no están hechas.<br>&nbsp;* @throws {SyntaxError} Si el fichero de datos no es JSON válido.<br>&nbsp;* @example<br>&nbsp;* resumen(); // 3<br>&nbsp;*/</div>
+<p>Después (corregida, comprobada contra la salida real
+<code>{ total: 3, hechas: 0, pendientes: 3 }</code>):</p>
+<div class="code">/**<br>&nbsp;* Calcula un resumen del estado de las tareas.<br>&nbsp;*<br>&nbsp;* @returns {{total: number, hechas: number, pendientes: number}}<br>&nbsp;*   Objeto con el número total de tareas, las ya completadas y las pendientes.<br>&nbsp;* @throws {SyntaxError} Si el fichero de datos no es JSON válido.<br>&nbsp;* @example<br>&nbsp;* resumen(); // { total: 3, hechas: 0, pendientes: 3 }<br>&nbsp;*/</div>
+
+<table>
+  <tr><th style="width:18%">Función</th><th style="width:52%">Revisión (¿coincide con el código?)</th><th>Resultado</th></tr>
+  <tr><td><code>leer()</code></td><td>Devuelve <code>[]</code> si no hay fichero; <code>JSON.parse</code> puede lanzar <code>SyntaxError</code>.</td><td class="ok">✔ correcta</td></tr>
+  <tr><td><code>guardar()</code></td><td>Sustituye el contenido y crea la carpeta si falta.</td><td class="ok">✔ correcta</td></tr>
+  <tr><td><code>anadir()</code></td><td>Id = máximo + 1; prioridad por defecto 2; la tarea nace sin hecha.</td><td class="ok">✔ correcta</td></tr>
+  <tr><td><code>completar()</code></td><td>La descripción habla del <i>id</i>; el código usaba el argumento como índice.</td><td class="ko">✘ incoherencia → ejercicio 6</td></tr>
+  <tr><td><code>eliminar()</code></td><td>Filtra por <code>id</code> y devuelve cuántas quedan.</td><td class="ok">✔ correcta</td></tr>
+  <tr><td><code>resumen()</code></td><td>Decía devolver un número; devuelve <code>{total, hechas, pendientes}</code>.</td><td class="ko">✘ corregida aquí</td></tr>
+</table>
+
+<h2>Ejercicio 5 — README (1,5 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Pídele un README.md con: título, descripción, requisitos,
+instalación, uso con un ejemplo por cada orden de la CLI, estructura de carpetas, formato de
+datos/tareas.json, autoría y licencia. Ejecuta todos los comandos del README: corrige los que no
+funcionen o den una salida distinta a la documentada y deja constancia de la corrección.</p>
+
+<h3>Qué se hizo</h3>
+<ul>
+  <li>Se escribió un README con <b>todas</b> las secciones pedidas: título, descripción,
+  requisitos, instalación, uso con un ejemplo de cada orden (<code>anadir</code>,
+  <code>listar</code>, <code>completar</code>, <code>eliminar</code>, <code>resumen</code>), atajos
+  con npm, estructura de carpetas, formato de <code>datos/tareas.json</code>, autoría y licencia.</li>
+  <li>Se <b>ejecutaron todos los comandos</b> del README, restaurando el estado de los datos antes
+  de cada ejemplo para compararlo con lo documentado (el fichero de datos está en Git, así que se
+  puede volver atrás con <code>git restore</code>).</li>
+  <li>Se corrigieron las discrepancias encontradas y quedó constancia en
+  <code>prompts.md</code> y en el commit correspondiente.</li>
+</ul>
+
+<h3>Ejecución completa de verificación (salida real)</h3>
+<div class="code">=== [1] node src/cli.js (ayuda) ===<br>Uso: node src/cli.js anadir|completar|eliminar|listar|resumen<br>=== [2] listar (documentado: 3 tareas) ===<br>[1] (p1) Preparar el entorno de despliegue<br>[3] (p2) Configurar el repositorio remoto<br>[2] (p3) Escribir el README del proyecto<br>=== [3] anadir (documentado: 'Tarea 4 creada con prioridad 2') ===<br>Tarea creada con id 4<br>=== [4] eliminar 4 (documentado: 'Eliminada; quedan 3 tareas') ===<br>Eliminada<br>=== [5] completar 1 (documentado: tarea id 1) ===<br>{<br>&nbsp;&nbsp;id: 2,<br>&nbsp;&nbsp;texto: 'Escribir el README del proyecto',<br>&nbsp;&nbsp;prioridad: 3,<br>&nbsp;&nbsp;hecha: true<br>}<br>=== [6] resumen (documentado: { total: 3, hechas: 0, pendientes: 3 }) ===<br>{ total: 3, hechas: 0, pendientes: 3 }<br>=== [7] npm run listar (documentado como atajo) ===<br>npm error Missing script: "listar"<br>npm error<br>npm error Did you mean one of these?<br>npm error   npm star # Mark your favorite packages<br>npm error   npm unstar # Remove an item from your favorite packages<br>npm error<br>npm error To see a list of scripts, run:<br>npm error   npm run<br>npm error A complete log of this run can be found in: /home/rd/.npm/_logs/2026-10-16T09_03_10_286Z-debug-0.log<br>exit=1</div>
+
+<h3>Discrepancias encontradas y correcciones</h3>
+<table>
+  <tr><th style="width:16%">Elemento</th><th style="width:26%">Documentado</th><th style="width:26%">Real</th><th>Corrección</th></tr>
+  <tr><td><code>anadir</code></td><td><code>Tarea 4 creada con prioridad 2</code></td><td><code>Tarea creada con id 4</code></td><td>Salida corregida en el README; además se aclaró que la CLI solo acepta el texto (la prioridad no se puede indicar todavía).</td></tr>
+  <tr><td><code>eliminar</code></td><td><code>Eliminada; quedan 3 tareas</code></td><td><code>Eliminada</code></td><td>Salida corregida y se anotó que si el id no existe los datos no cambian.</td></tr>
+  <tr><td>Atajo npm</td><td><code>npm run listar</code></td><td><code>npm error Missing script: "listar"</code></td><td>Atajo inexistente eliminado; se conserva el correcto <code>npm start -- listar</code>.</td></tr>
+  <tr><td><code>completar</code></td><td>Muestra la tarea con id 1</td><td>Mostraba la tarea con id 2</td><td><b>No era un error de documentación</b>: era un fallo del código (el README documentaba el comportamiento correcto). Se resolvió en el ejercicio 6.</td></tr>
+</table>
+
+<p>Commit de la corrección:</p>
+<div class="code">$ git log --oneline -1 478b9c2<br>478b9c2 Corrige el README tras ejecutar todos los ejemplos</div>
+
+<h2>Ejercicio 6 — El error (2 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> El proyecto tiene un fallo: node src/cli.js completar 1 no
+marca la tarea que debería. Sin decirle cuál es el fallo, pide al agente que escriba en test/ una
+prueba con node:test que lo demuestre y ejecútala con npm test (debe fallar). Solo después, pídele
+que corrija src/tareas.js y vuelve a ejecutar las pruebas (deben pasar). Adjunta las dos salidas y
+explica en qué consistía el error.</p>
+
+<h3>La prueba (test/tareas.test.js)</h3>
+<div class="code">/**<br>&nbsp;* @file Pruebas de `src/tareas.js` con el runner integrado de Node<br>&nbsp;* (`node:test`). Se ejecutan con `npm test`.<br>&nbsp;*/<br><br>const { test, beforeEach, afterEach } = require('node:test');<br>const assert = require('node:assert/strict');<br>const fs = require('node:fs');<br>const path = require('node:path');<br><br>const tareas = require('../src/tareas');<br><br>const FICHERO = path.join(__dirname, '..', 'datos', 'tareas.json');<br><br>// Copia de seguridad del fichero de datos para restaurarlo tras cada prueba.<br>let copia;<br><br>beforeEach(() =&gt; {<br>&nbsp;&nbsp;copia = fs.readFileSync(FICHERO, 'utf8');<br>});<br><br>afterEach(() =&gt; {<br>&nbsp;&nbsp;fs.writeFileSync(FICHERO, copia);<br>});<br><br>test('completar(1) marca como hecha la tarea con id 1 (y solo esa)', () =&gt; {<br>&nbsp;&nbsp;tareas.completar(1);<br><br>&nbsp;&nbsp;const despues = tareas.leer();<br>&nbsp;&nbsp;const tarea1 = despues.find((t) =&gt; t.id === 1);<br>&nbsp;&nbsp;const tarea2 = despues.find((t) =&gt; t.id === 2);<br>&nbsp;&nbsp;const tarea3 = despues.find((t) =&gt; t.id === 3);<br><br>&nbsp;&nbsp;assert.equal(tarea1.hecha, true, 'la tarea con id 1 debería estar hecha');<br>&nbsp;&nbsp;assert.equal(tarea2.hecha, false, 'la tarea con id 2 no debería tocarse');<br>&nbsp;&nbsp;assert.equal(tarea3.hecha, false, 'la tarea con id 3 no debería tocarse');<br>});</div>
+
+<h3>Salida 1: las pruebas fallan (salida abreviada)</h3>
+<div class="code">$ npm test<br><br>&gt; gestor-tareas@0.1.0 test<br>&gt; node --test<br><br>TAP version 13<br># Subtest: completar(1) marca como hecha la tarea con id 1 (y solo esa)<br>not ok 1 - completar(1) marca como hecha la tarea con id 1 (y solo esa)<br>&nbsp;&nbsp;---<br>&nbsp;&nbsp;duration_ms: 8.487181<br>&nbsp;&nbsp;type: 'test'<br>&nbsp;&nbsp;location: '/home/rd/Practica2OpenCode/test/tareas.test.js:26:1'<br>&nbsp;&nbsp;failureType: 'testCodeFailure'<br>&nbsp;&nbsp;error: |-<br>&nbsp;&nbsp;&nbsp;&nbsp;la tarea con id 1 debería estar hecha<br><br>&nbsp;&nbsp;&nbsp;&nbsp;false !== true<br><br>&nbsp;&nbsp;code: 'ERR_ASSERTION'<br>&nbsp;&nbsp;name: 'AssertionError'<br>&nbsp;&nbsp;expected: true<br>&nbsp;&nbsp;actual: false<br>&nbsp;&nbsp;operator: 'strictEqual'<br>&nbsp;&nbsp;...<br>1..1<br># tests 1<br># suites 0<br># pass 0<br># fail 1<br># cancelled 0<br># skipped 0<br># todo 0</div>
+
+<h3>En qué consistía el error</h3>
+<p>La función <code>completar(id)</code> usaba el argumento como <b>índice del array</b>:</p>
+<div class="code">function completar(id) {<br>&nbsp;&nbsp;const tareas = leer();<br>&nbsp;&nbsp;tareas[id].hecha = true;   // &larr; ¡id como índice!<br>&nbsp;&nbsp;guardar(tareas);<br>&nbsp;&nbsp;return tareas[id];<br>}</div>
+<p>Como los <code>id</code> de las tareas empiezan en 1 y los índices del array en 0, había un
+desfase de uno: <code>completar 1</code> marcaba la <b>segunda</b> tarea, <code>completar 2</code>
+la tercera y <code>completar 3</code> provocaba un <code>TypeError</code> (índice fuera del array).
+El error pasaba desapercibido porque «parecía funcionar»: cambiaba algo y no lanzaba error en el
+caso 1.</p>
+
+<h3>Corrección (diff revisado antes de confirmar)</h3>
+<div class="code">$ git diff --staged<br>diff --git a/src/tareas.js b/src/tareas.js<br>index 0830576..2147eac 100644<br>--- a/src/tareas.js<br>+++ b/src/tareas.js<br>@@ -74,15 +74,17 @@ function anadir(texto, prioridad = 2) {<br>&nbsp;&nbsp;* @param {number} id Identificador de la tarea que se quiere completar.<br>&nbsp;&nbsp;* @returns {{id: number, texto: string, prioridad: number, hecha: boolean}}<br>&nbsp;&nbsp;*   La tarea actualizada.<br>- * @throws {TypeError} Si no existe ninguna tarea con ese identificador.<br>+ * @throws {Error} Si no existe ninguna tarea con el id indicado.<br>&nbsp;&nbsp;* @example<br>&nbsp;&nbsp;* completar(1); // la tarea con id 1 pasa a estar hecha<br>&nbsp;&nbsp;*/<br>&nbsp;function completar(id) {<br>&nbsp;&nbsp;&nbsp;const tareas = leer();<br>-  tareas[id].hecha = true;<br>+  const tarea = tareas.find((t) =&gt; t.id === id);<br>+  if (!tarea) throw new Error(`No existe ninguna tarea con el id ${id}`);<br>+  tarea.hecha = true;<br>&nbsp;&nbsp;&nbsp;guardar(tareas);<br>-  return tareas[id];<br>+  return tarea;<br>&nbsp;}<br><br>&nbsp;/**</div>
+<p>La corrección busca la tarea por su <code>id</code> con <code>find()</code> y lanza un error
+claro si no existe. Además se actualizó el <code>@throws</code> del JSDoc para reflejarlo.</p>
+
+<h3>Salida 2: las pruebas pasan (salida abreviada)</h3>
+<div class="code">$ npm test<br><br>&gt; gestor-tareas@0.1.0 test<br>&gt; node --test<br><br>TAP version 13<br># Subtest: completar(1) marca como hecha la tarea con id 1 (y solo esa)<br>ok 1 - completar(1) marca como hecha la tarea con id 1 (y solo esa)<br>&nbsp;&nbsp;---<br>&nbsp;&nbsp;duration_ms: 4.466752<br>&nbsp;&nbsp;type: 'test'<br>&nbsp;&nbsp;...<br>1..1<br># tests 1<br># suites 0<br># pass 1<br># fail 0<br># cancelled 0<br># skipped 0<br># todo 0</div>
+
+<h3>Comprobación final con el comando real</h3>
+<div class="code">$ node src/cli.js completar 1<br>{<br>&nbsp;&nbsp;id: 1,<br>&nbsp;&nbsp;texto: 'Preparar el entorno de despliegue',<br>&nbsp;&nbsp;prioridad: 1,<br>&nbsp;&nbsp;hecha: true<br>}</div>
+<p>La salida coincide ya con la documentada en el README. La prueba protege los datos reales: antes
+de cada test guarda una copia de <code>datos/tareas.json</code> y la restaura al terminar.</p>
+
+<h2>Ejercicio 7 — Git con supervisión (1,5 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Pide al agente que prepare los cambios en commits separados
+(documentación, pruebas y corrección) con mensajes en español. Antes de cada commit revisa git
+diff --staged. Después, crea con él docs/control-de-versiones.md: instalación y configuración de
+Git usada, flujo de trabajo, convención de mensajes y cómo revisar lo que hace un agente antes de
+confirmarlo. Verifica el historial con git log --oneline --graph.</p>
+
+<h3>Instalación y configuración usada</h3>
+<div class="code">$ git --version<br>git version 2.53.0<br><br>$ git config --global user.name<br>RD<br><br>$ git config --global user.email<br>rd@example.com</div>
+
+<h3>Commits separados por tema</h3>
+<p>La documentación, la prueba y la corrección se prepararon en tres commits distintos, con el
+diff de cada uno revisado con <code>git diff --staged</code> antes de confirmarlos (en el
+ejercicio 6 se muestra uno de esos diffs):</p>
+<div class="code">47c1361 Añade documentación JSDoc a las funciones de src/tareas.js<br>852f7f8 Añade prueba de completar() con node:test<br>1d51aea Corrige completar() para localizar la tarea por su id</div>
+
+<h3>docs/control-de-versiones.md (resumen del contenido)</h3>
+<ul>
+  <li><b>Instalación y configuración:</b> Git 2.53.0; identidad <code>RD &lt;rd@example.com&gt;</code>;
+  repositorio creado con <code>git init -b main</code>; sin remoto configurado (las subidas están
+  prohibidas por <code>AGENTS.md</code> y por <code>opencode.json</code>).</li>
+  <li><b>Flujo de trabajo:</b> un cambio = un tema = un commit; revisar el diff y ejecutar las
+  pruebas antes de confirmar; mensajes en español; trabajo lineal sobre <code>main</code>;
+  <code>git restore</code> para deshacer cambios sin confirmar.</li>
+  <li><b>Convención de mensajes:</b> «Añade…» para lo nuevo y «Corrige…» para los arreglos (con la
+  excepción del commit inicial, «Proyecto de partida», fijado por el enunciado).</li>
+  <li><b>Cómo revisar lo que hace un agente antes de confirmarlo:</b>
+    <ol>
+      <li><code>git status</code> y <code>git diff</code>: ver qué ficheros toca y qué cambia.</li>
+      <li><code>git diff --staged</code>: revisión final de lo que se va a confirmar.</li>
+      <li>Ejecutar la verificación real (<code>npm test</code> y los comandos del README): la
+      evidencia es la salida, no la respuesta del agente.</li>
+      <li>Comprobar que el mensaje de commit describe de verdad el cambio.</li>
+      <li>Apoyarse en los permisos de <code>opencode.json</code>: aprobación de órdenes, prohibiciones
+      explícitas y límites de escritura.</li>
+      <li>Consultar el historial: <code>git log --oneline --graph</code> y <code>git show</code>.</li>
+    </ol>
+  </li>
+</ul>
+
+<h3>Verificación del historial</h3>
+<div class="code">$ git log --oneline --graph<br>* e878340 Añade registro de prompts y balance de la práctica<br>* 4c8a986 Añade conversión del README a HTML y PDF y tabla comparativa<br>* f5270e7 Añade guía de control de versiones<br>* 01b26aa Añade la sección de pruebas al README<br>* 1d51aea Corrige completar() para localizar la tarea por su id<br>* 852f7f8 Añade prueba de completar() con node:test<br>* 478b9c2 Corrige el README tras ejecutar todos los ejemplos<br>* 69a0ca5 Añade README con la documentación del proyecto (borrador)<br>* 47c1361 Añade documentación JSDoc a las funciones de src/tareas.js<br>* 0cb78f7 Añade fichero de bloqueo generado por npm<br>* c45bbf3 Añade configuración de permisos de OpenCode<br>* 80a9b5d Añade AGENTS.md con las normas del proyecto<br>* d1cb56e Añade versión de npm fijada con corepack<br>* 2839e46 Proyecto de partida</div>
+<p class="nota">El historial anterior es el estado justo antes de crear este informe; el commit que
+añade el informe y su registro queda como último commit del repositorio.</p>
+
+<h2>Ejercicio 8 — Comparación de formatos (0,5 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Convierte el README.md a HTML y a PDF (extensión Markdown
+PDF de VS Code, Pandoc o el propio navegador) y añade al README una tabla que compare los tres
+formatos: ventajas, inconvenientes y cuándo usar cada uno.</p>
+
+<h3>Qué se hizo</h3>
+<ul>
+  <li>Conversión reproducible y versionada: <code>bash docs/convertir-readme.sh</code> usa
+  <code>docs/md-a-html.py</code> (Markdown → HTML con <code>markdown-it-py</code>) y LibreOffice
+  (<code>soffice --headless</code>, HTML → PDF). El resultado vive en <code>docs/README.html</code>
+  y <code>docs/README.pdf</code>.</li>
+  <li>Se añadió al README la tabla comparativa de los tres formatos (incluida abajo) y se
+  regeneraron HTML y PDF para que la contuvieran.</li>
+</ul>
+
+<div class="code">$ bash docs/convertir-readme.sh<br>Generado /home/rd/Practica2OpenCode/docs/README.html<br>convert /home/rd/Practica2OpenCode/docs/README.html as a Writer/Web document -&gt; /home/rd/Practica2OpenCode/docs/README.pdf using filter : writer_web_pdf_Export<br>Conversión completada: docs/README.html y docs/README.pdf<br><br>$ pdfinfo docs/README.pdf | grep -E "^(Pages|Title)"<br>Title:           README<br>Pages:           5</div>
+
+<p><img src="readme-pdf-pagina1.png" width="70%" alt="Primera página del README convertido a PDF"></p>
+<p class="pie-img">Primera página de <code>docs/README.pdf</code>, generado automáticamente desde el README en Markdown.</p>
+
+<h3>Tabla comparativa de formatos (añadida al README)</h3>
+<table>
+  <tr><th style="width:14%">Formato</th><th style="width:29%">Ventajas</th><th style="width:29%">Inconvenientes</th><th>Cuándo usarlo</th></tr>
+  <tr>
+    <td><b>Markdown</b> (<code>README.md</code>)</td>
+    <td>Fácil de escribir y editar; se versiona y revisa muy bien en Git (diffs legibles); conversión sencilla a otros formatos.</td>
+    <td>No controla el diseño final; la apariencia depende del visor.</td>
+    <td>Documentación viva del repositorio: es la fuente de la que se generan los demás formatos.</td>
+  </tr>
+  <tr>
+    <td><b>HTML</b> (<code>docs/README.html</code>)</td>
+    <td>Presentación controlada con CSS; se abre en cualquier navegador; se puede publicar en la web.</td>
+    <td>Más verboso; mezcla contenido y presentación; diffs peores de revisar.</td>
+    <td>Publicar la documentación en una web o compartirla con estilo.</td>
+  </tr>
+  <tr>
+    <td><b>PDF</b> (<code>docs/README.pdf</code>)</td>
+    <td>Presentación fija e idéntica en cualquier equipo; cómodo de entregar e imprimir.</td>
+    <td>Formato binario: no se revisa bien en Git y no es editable con facilidad.</td>
+    <td>Entregas, impresión y documentación «congelada».</td>
+  </tr>
+</table>
+<p>Los formatos HTML y PDF son <b>generados</b>: se regeneran desde el Markdown para que no queden
+desactualizados.</p>
+
+<h2>Ejercicio 9 — Balance (0,5 puntos)</h2>
+
+<p class="enunciado"><b>Enunciado.</b> Responde en prompts.md: ¿cuántas correcciones tuviste que
+hacerle? ¿qué parte te ahorró tiempo de verdad? ¿qué habrías entregado mal si no lo hubieras
+comprobado?</p>
+
+<h3>Registro de prompts (mantenido durante la práctica)</h3>
+<table>
+  <tr><th style="width:4%">Nº</th><th style="width:28%">Prompt (resumido)</th><th style="width:34%">Qué hizo el agente</th><th>Qué corregí yo</th></tr>
+  <tr><td>1</td><td>«Explica qué hace este proyecto, qué ficheros lo componen y cómo se ejecuta» (modo Plan).</td><td>Resumen correcto: describió los 4 ficheros, las órdenes de la CLI y advirtió del fallo de <code>completar</code>.</td><td>Nada; comprobé con <code>ls -R</code>, <code>node --version</code> y ejecutando la CLI que todo lo citado existe de verdad.</td></tr>
+  <tr><td>2</td><td>«Genera el fichero AGENTS.md del proyecto» (equivalente a <code>/init</code>).</td><td>Borrador completo con descripción, estructura, comandos y normas.</td><td><b>Se inventó una carpeta <code>test/</code></b> que no existía (comprobado con <code>ls</code>) y la eliminé del documento.</td></tr>
+  <tr><td>3</td><td>«Configura opencode.json: pide permiso para las órdenes del sistema, prohíbe <code>git push</code> y <code>rm</code>, bloquea <code>.env</code>, limita la escritura a <code>src/</code>, <code>test/</code> y <code>docs/</code>, e impide compartir la sesión».</td><td>Escribió la configuración en formato V2 (<code>permissions</code> ordenadas, <code>share: "disabled"</code>). Verificado: <code>git push</code> y una escritura a <code>notas.txt</code> quedaron denegados.</td><td>Añadí excepciones explícitas para los ficheros de la raíz que exige la propia práctica (<code>README.md</code>, <code>AGENTS.md</code>, <code>prompts.md</code>, <code>opencode.json</code>).</td></tr>
+  <tr><td>4</td><td>«Documenta con JSDoc las seis funciones de <code>src/tareas.js</code> con <code>@param</code>, <code>@returns</code>, <code>@throws</code> y un <code>@example</code>».</td><td>Añadió JSDoc completo a las seis funciones exportadas (y a <code>guardar</code>, interna).</td><td><b><code>resumen()</code> estaba mal documentada</b> (decía que devolvía un número y devuelve un objeto): la corregí. También anoté que la descripción de <code>completar()</code> no coincidía con el código (id ≠ índice), pendiente para el ejercicio 6.</td></tr>
+  <tr><td>5</td><td>«Escribe el README del proyecto con todas las secciones pedidas, con un ejemplo por cada orden de la CLI».</td><td>README completo y bien estructurado.</td><td>Ejecuté <b>todos</b> los comandos: <b>dos salidas mal documentadas</b> de <code>anadir</code> y <code>eliminar</code>, y un atajo inexistente (<code>npm run listar</code>) que eliminé. La discrepancia de <code>completar</code> no era de documentación: era el fallo del código.</td></tr>
+  <tr><td>6</td><td>«El proyecto tiene un fallo: <code>node src/cli.js completar 1</code> no marca la tarea que debería; escribe en <code>test/</code> una prueba con <code>node:test</code> que lo demuestre» (sin decir la causa).</td><td>Prueba con <code>beforeEach</code>/<code>afterEach</code> que protege los datos reales; <code>npm test</code> falló mostrando el <code>AssertionError</code>.</td><td>Nada; revisé que la prueba comprueba lo que dice y no toca los datos.</td></tr>
+  <tr><td>7</td><td>«Corrige <code>src/tareas.js</code> para que la prueba pase».</td><td>Localizó la tarea con <code>find</code> por <code>id</code> y lanza un error claro si no existe; <code>npm test</code> en verde.</td><td>Nada; revisé el diff (<code>@throws</code> actualizado incluido).</td></tr>
+  <tr><td>8</td><td>«Prepara los cambios en commits separados (documentación, pruebas y corrección)».</td><td>Tres commits en español siguiendo la convención «Añade…/Corrige…».</td><td>Revisé <code>git diff --staged</code> antes de cada commit.</td></tr>
+  <tr><td>9</td><td>«Crea <code>docs/control-de-versiones.md</code> con la instalación y configuración de Git, el flujo de trabajo, la convención de mensajes y cómo revisar el trabajo de un agente».</td><td>Documento completo y verificado con <code>git log --oneline --graph</code>.</td><td>Nada.</td></tr>
+  <tr><td>10</td><td>«Convierte el README a HTML y PDF y añade una tabla comparativa de los tres formatos».</td><td>Script de conversión reproducible, HTML y PDF generados, tabla añadida al README.</td><td>Nada; verifiqué el PDF visualmente (páginas, estilos y tabla).</td></tr>
+  <tr><td>11</td><td>«Genera el informe final en PDF con el enunciado, las soluciones y las salidas reales de cada ejercicio».</td><td>Compuso este informe en HTML (cabecera del IES, tablas y bloques de comandos) y lo convirtió a PDF con LibreOffice.</td><td>Nada; revisé el PDF página a página y ajusté el formato para que tablas y bloques de código se lean bien.</td></tr>
+</table>
+
+<h3>Balance</h3>
+<p><b>¿Cuántas correcciones tuve que hacerle?</b> Seis correcciones relevantes: una carpeta
+<code>test/</code> inventada en <code>AGENTS.md</code>; una descripción JSDoc incorrecta
+(<code>resumen()</code>); dos salidas mal documentadas en el README (<code>anadir</code> y
+<code>eliminar</code>); un comando inexistente (<code>npm run listar</code>); y la detección del
+fallo de <code>completar()</code> (esta última no era de documentación, sino del propio código).</p>
+<p><b>¿Qué parte me ahorró tiempo de verdad?</b> Pasar del folio en blanco a un borrador revisable:
+<code>AGENTS.md</code>, el JSDoc de las seis funciones, el README completo y la guía de control de
+versiones salieron de una vez y solo hubo que validar y corregir detalles. También el trabajo
+mecánico: la prueba inicial, los mensajes de commit, el script de conversión Markdown → HTML → PDF
+y este informe.</p>
+<p><b>¿Qué habría entregado mal si no lo hubiera comprobado?</b> Una carpeta que no existe en
+<code>AGENTS.md</code>; una descripción falsa en el JSDoc de <code>resumen()</code>; un README con
+salidas que no coinciden con la realidad y un atajo que no funciona; y, lo más importante, habría
+dado por bueno un <code>completar()</code> que marca la tarea equivocada, porque el código
+«parecía» correcto hasta ejecutar la prueba. Sin la verificación (ejecutar, comparar salidas y
+revisar diffs) la entrega sería incorrecta aunque lo pareciera.</p>
+
+<h2>Anexo A — Entorno y reproducibilidad</h2>
+<div class="code">$ opencode --version<br>opencode v2.0.16<br><br>$ node --version<br>v22.22.1<br><br>$ npm --version<br>11.21.1        # fijado con corepack (campo packageManager de package.json)<br><br>$ git --version<br>git version 2.53.0</div>
+<ul>
+  <li>Ejecutar la aplicación: <code>node src/cli.js &lt;orden&gt;</code> o <code>npm start -- &lt;orden&gt;</code>.</li>
+  <li>Ejecutar las pruebas: <code>npm test</code> (runner integrado <code>node:test</code>).</li>
+  <li>Regenerar los formatos del README: <code>bash docs/convertir-readme.sh</code>.</li>
+  <li>Historial del repositorio: <code>git log --oneline --graph</code>.</li>
+</ul>
+
+<h2>Anexo B — Notas de interpretación</h2>
+<ol>
+  <li><b>Conversión de formatos (ejercicio 8).</b> La práctica propone la extensión Markdown PDF
+  de VS Code, Pandoc o el navegador. En este entorno se usó el equivalente
+  <code>markdown-it-py</code> + LibreOffice (Markdown → HTML → PDF), con un script versionado en
+  <code>docs/</code> para que la conversión sea reproducible y no quede desactualizada.</li>
+  <li><b>Límite de escritura (ejercicio 3).</b> «No escribir fuera de <code>src/</code>,
+  <code>test/</code> y <code>docs/</code>» se implementó con <code>edit:* → deny</code> más
+  excepciones explícitas para cuatro ficheros de la raíz que la <b>propia práctica obliga</b> a
+  crear y editar: <code>README.md</code>, <code>AGENTS.md</code>, <code>prompts.md</code> y
+  <code>opencode.json</code>. Cualquier otra ruta (incluida la raíz en general) queda denegada.</li>
+  <li><b>share: "disabled".</b> Es un campo de la configuración clásica de OpenCode que la versión
+  V2 mantiene por compatibilidad; <code>/share</code> sigue existiendo y respeta esta
+  configuración. Se verificó que el fichero de configuración se carga sin errores
+  (<code>opencode debug config</code>).</li>
+  <li><b>Alcance de los permisos.</b> Las reglas actúan sobre las herramientas del agente
+  (<code>shell</code>, <code>edit</code>, <code>read</code>…). Las órdenes de shell aprobadas se
+  ejecutan con los permisos del usuario del sistema; por eso la política combina aprobación
+  (<code>ask</code>) con prohibiciones explícitas (<code>deny</code>) para <code>git push</code>,
+  <code>rm</code> y los secretos.</li>
+</ol>
+
+<p class="pie">Práctica OpenCode UT1 — Resolución · Repositorio: /home/rd/Practica2OpenCode · Registro de prompts: prompts.md · Historial: git log --oneline --graph</p>
+
+</body>
+</html>
