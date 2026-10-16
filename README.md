@@ -102,7 +102,28 @@ Devuelve el total de tareas, cuántas están hechas y cuántas pendientes.
 
 ```bash
 npm start -- listar
+npm test
 ```
+
+## Pruebas
+
+Las pruebas usan el runner integrado de Node (`node:test`) y se ejecutan con
+`npm test`:
+
+```bash
+$ npm test
+
+> gestor-tareas@0.1.0 test
+> node --test
+
+...
+1..1
+# tests 1
+# pass 1
+# fail 0
+```
+
+(Salida abreviada: `node --test` imprime el informe TAP completo.)
 
 ## Estructura de carpetas
 
@@ -114,9 +135,11 @@ npm start -- listar
 ├── package.json     # metadatos y scripts npm
 ├── datos/
 │   └── tareas.json  # almacén de datos
-└── src/
-    ├── cli.js       # interfaz de línea de comandos
-    └── tareas.js    # lógica de negocio y persistencia
+├── src/
+│   ├── cli.js       # interfaz de línea de comandos
+│   └── tareas.js    # lógica de negocio y persistencia
+└── test/
+    └── tareas.test.js  # pruebas con node:test
 ```
 
 ## Formato de `datos/tareas.json`
