@@ -74,15 +74,17 @@ function anadir(texto, prioridad = 2) {
  * @param {number} id Identificador de la tarea que se quiere completar.
  * @returns {{id: number, texto: string, prioridad: number, hecha: boolean}}
  *   La tarea actualizada.
- * @throws {TypeError} Si no existe ninguna tarea con ese identificador.
+ * @throws {Error} Si no existe ninguna tarea con el id indicado.
  * @example
  * completar(1); // la tarea con id 1 pasa a estar hecha
  */
 function completar(id) {
   const tareas = leer();
-  tareas[id].hecha = true;
+  const tarea = tareas.find((t) => t.id === id);
+  if (!tarea) throw new Error(`No existe ninguna tarea con el id ${id}`);
+  tarea.hecha = true;
   guardar(tareas);
-  return tareas[id];
+  return tarea;
 }
 
 /**
